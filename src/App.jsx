@@ -1,26 +1,36 @@
 import "./App.css";
 import bgImgMobLight from "./assets/bg-mobile-light.jpg";
 import bgDesktopLight from "./assets/bg-desktop-light.jpg";
+import bgDesktopDark from "./assets/bg-desktop-dark.jpg";
 import bgImgMobDark from "./assets/bg-mobile-dark.jpg";
 import HeaderComponent from "./components/HeaderComponent";
 import InputComponent from "./components/InputComponent";
 import TodoBodyComponent from "./components/TodoBodyComponent";
 import TodoFooterComponent from "./components/TodoFooterComponent";
 import TodoFilterComponent from "./components/TodoFilterComponent";
+import React from "react";
 
 function App() {
+  const [darkMode, setDarkMode] = React.useState(true);
+
+  function toggleDarkMode() {
+    setDarkMode((prevDarkMode) => !prevDarkMode);
+  }
   return (
-    <>
+    <div className={` ${darkMode ? "dark" : ""}`}>
       <picture>
-        <source srcSet={bgDesktopLight} media="(min-width: 600px)"></source>
+        <source
+          srcSet={darkMode ? bgDesktopDark : bgDesktopLight}
+          media="(min-width: 600px)"
+        ></source>
         <img
-          src={bgImgMobLight}
+          src={darkMode ? bgImgMobDark : bgImgMobLight}
           alt="Background Mobile light"
           className="w-full object-fill sm:h-[300px]"
         />
       </picture>
       <div className="sm:w-[540px] sm:mx-auto">
-        <HeaderComponent />
+        <HeaderComponent darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
         <InputComponent />
       </div>
 
@@ -38,7 +48,7 @@ function App() {
       <div className="sm:w-[540px] sm:mx-auto text-center text-sm text-gray-400 mt-16">
         Drag and drop to reorder list
       </div>
-    </>
+    </div>
   );
 }
 
