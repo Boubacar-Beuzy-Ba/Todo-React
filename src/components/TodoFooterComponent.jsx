@@ -13,7 +13,7 @@ function TodoFooterComponent() {
         </div>
         <div>
           <Button
-            className="text-sm capitalize text-gray-400"
+            className="text-sm capitalize text-gray-400 dark:focus:text-white"
             size="small"
             type="text"
           >

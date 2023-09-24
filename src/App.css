@@ -1,6 +1,7 @@
-body {
-  background-color: #e3e4f1;
-}
 .dark {
-  @apply bg-gray-800 text-zinc-50
+    @apply bg-gray-800 text-zinc-50;
+}
+
+.light {
+    @apply bg-[#E3E4F1];
 }
