@@ -6,14 +6,16 @@ import bgImgMobDark from "./assets/bg-mobile-dark.jpg";
 import HeaderComponent from "./components/HeaderComponent";
 import InputComponent from "./components/InputComponent";
 import TodoBodyComponent from "./components/TodoBodyComponent";
-import TodoFooterComponent from "./components/TodoFooterComponent";
-import TodoFilterComponent from "./components/TodoFilterComponent";
 import React, { useEffect } from "react";
 import { useState } from "react";
+import todoLists from "./data/todos.json";
 
 function App() {
   const [darkMode, setDarkMode] = React.useState(true);
   const [theme, setTheme] = useState("dark");
+  const [todo, setTodo] = useState(todoLists);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(5);
 
   useEffect(() => {
     if (theme === "dark") {
@@ -27,6 +29,18 @@ function App() {
     setDarkMode((prevDarkMode) => !prevDarkMode);
     setTheme(theme === "dark" ? "light" : "dark");
   }
+  const addTodo = (newTodo) => {
+    setTodo([
+      ...todo,
+      { id: Math.random(), name: newTodo, completed: "false" },
+    ]);
+  };
+
+  function handleDeleteTodo(id) {
+    setTodo((prevTodo) => prevTodo.filter((item) => item.id !== id));
+    console.log(`Todo Item with ID ${id} successfully deleted.`);
+  }
+
   return (
     <div>
       <picture>
@@ -42,25 +56,30 @@ function App() {
       </picture>
       <div className="sm:w-[540px] sm:mx-auto">
         <HeaderComponent darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
-        <InputComponent />
+        <InputComponent onSubmit={addTodo} deleteTodo={handleDeleteTodo} />
       </div>
 
       <div className="bg-white dark:bg-[#393A4B] mx-4 sm:mx-auto sm:w-[541px] rounded-lg mt-4 md:mt-20 h-96 py-1 shadow-lg relative">
-        <TodoBodyComponent />
-        <TodoBodyComponent />
-        <TodoBodyComponent />
-        <TodoBodyComponent />
-        <TodoBodyComponent />
-        <TodoFooterComponent />
-      </div>
-      <div className="sm:w-[540px] md:hidden sm:mx-auto bg-white dark:bg-[#393A4B] rounded-lg mt-6 h-12 mx-4 py-2 shadow-lg">
-        <TodoFilterComponent />
+        <TodoBodyComponent
+          data={getCurrentPageItems()}
+          deleteTodo={handleDeleteTodo}
+          currentPage={currentPage}
+          totalPages={Math.ceil(todo.length / itemsPerPage)}
+          onPageChange={setCurrentPage}
+          itemsPerPage={itemsPerPage}
+          darkMode={darkMode}
+        />
       </div>
       <div className="sm:w-[540px] sm:mx-auto text-center text-sm text-gray-400 mt-16">
         Drag and drop to reorder list
       </div>
     </div>
   );
+  function getCurrentPageItems() {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    return todo.slice(startIndex, endIndex);
+  }
 }
 
 export default App;

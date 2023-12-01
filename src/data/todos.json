@@ -1,0 +1,52 @@
+[
+  {
+    "id": "1",
+    "name": "Set up project structure",
+    "completed": "false"
+  },
+  {
+    "id": "2",
+    "name": "Create HTML file",
+    "completed": "false"
+  },
+  {
+    "id": "3",
+    "name": "Add CSS styling",
+    "completed": "false"
+  },
+  {
+    "id": "4",
+    "name": "Implement JavaScript logic",
+    "completed": "false"
+  },
+  {
+    "id": "5",
+    "name": "Connect to backend API",
+    "completed": "false"
+  },
+  {
+    "id": "6",
+    "name": "Display todo list",
+    "completed": "false"
+  },
+  {
+    "id": "7",
+    "name": "Allow user to add new todos",
+    "completed": "false"
+  },
+  {
+    "id": "8",
+    "name": "Enable todo completion",
+    "completed": "false"
+  },
+  {
+    "id": "9",
+    "name": "Implement todo deletion",
+    "completed": "false"
+  },
+  {
+    "id": "10",
+    "name": "Add responsiveness",
+    "completed": "false"
+  }
+]
